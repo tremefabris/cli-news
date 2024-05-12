@@ -23,13 +23,29 @@ def href(uri, label=None):
     escape_mask = "\033]8;{};{}\033\\{}\033]8;;\033\\"
     return escape_mask.format(params, uri, label)
 
-# TODO: Make this function better -- maybe create Color class
-def format_output(href, news_source, _blue=True):
-    if _blue:
-        return "[\033[94m{}\033[0m] {}".format(
-            news_source,
-            href
-        )
+
+COLOR = {
+    "RED": "\033[91m",
+    "GRN": "\033[92m",
+    "BLU": "\033[94m",
+    "RST": "\033[0m"
+}
+
+def format_output(href, news_source, color="blue"):
+    
+    color = color.lower()
+    if color == "red":
+        color_seq = COLOR["RED"]
+    if color == "green":
+        color_seq = COLOR["GRN"]
+    if color == "blue":
+        color_seq = COLOR["BLU"]
+    return "[{}{}{}] {}".format(
+        color_seq,
+        news_source,
+        COLOR["RST"],
+        href
+    )
 
 
 def create_links(website, headlines, options):
@@ -38,7 +54,8 @@ def create_links(website, headlines, options):
         links.append(
             format_output(
                 extract_href(h, website["html"]),
-                options.jornal.upper()
+                options.jornal.upper(),
+                options.color
             )
         )
     return links
