@@ -1,5 +1,7 @@
 from json import load as jload
+
 from .color import Color as C
+from .date import format_date
 
 
 
@@ -28,10 +30,11 @@ def href(uri, label=None):
 
 
 
-def format_output(href, news_source, color="blue"):
+def format_output(href, news_source, formatted_date, color="blue"):
     
-    return "[{}] {}".format(
+    return "[{}{}] {}".format(
         C.color(news_source, color=color),
+        formatted_date,
         href
     )
 
@@ -43,6 +46,7 @@ def create_links(website, headlines, options):
             format_output(
                 extract_href(h, website["html"]),
                 options.jornal.upper(),
+                format_date(h, website["date_format"]),
                 options.color
             )
         )
@@ -52,7 +56,7 @@ def create_links(website, headlines, options):
 def get_website_config(website_path, options):
     with open(website_path.absolute(), "r") as f:
         ws = jload(f)
-    news_source = options.jornal.lower()                            # error-passive
+    news_source = options.jornal.lower()                            # error-passive -- why tho? lmao
     return ws[news_source]
 
 def get_webheader_config(webheader_path, options=None):
