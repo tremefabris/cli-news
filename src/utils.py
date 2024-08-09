@@ -1,7 +1,7 @@
 from json import load as jload
 
 from .color import Color as C
-from .date import format_date
+from .date import parse_date, format_date, date_ok
 
 
 
@@ -40,16 +40,26 @@ def format_output(href, news_source, formatted_date, color="blue"):
 
 
 def create_links(website, headlines, options):
+    if website["date_format"] is None:
+        print(f" :: {C.yellow("WARNING")} :: Publication date not available...")
+        print(f" :: {C.yellow("WARNING")} :: Fetching all articles found...")
+
     links = []
     for h in headlines:
+
+        h_date = parse_date(h, website["date_format"])
+        if not date_ok(h_date, options.since):
+            continue
+
         links.append(
             format_output(
                 extract_href(h, website["html"]),
                 options.jornal.upper(),
-                format_date(h, website["date_format"]),
+                format_date(h_date),
                 options.color
             )
         )
+
     return links
 
 

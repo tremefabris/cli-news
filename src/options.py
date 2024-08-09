@@ -14,4 +14,9 @@ def get_options():
                             C.red("RED"), C.green("GREEN"), C.blue("BLUE")),
                         metavar="STR")
 
+    parser.add_argument("--since", '-s', type=int, required=False,
+                        default=-1,
+                        help="Pegar apenas matérias lançadas desde N dias atrás",
+                        metavar="N")
+
     return parser.parse_args()
