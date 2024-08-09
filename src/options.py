@@ -1,5 +1,5 @@
 import argparse
-from utils import COLOR
+from .color import Color as C
 
 def get_options():
     parser = argparse.ArgumentParser()
@@ -10,9 +10,8 @@ def get_options():
     
     parser.add_argument("--color", "-c", type=str, required=False,
                         default="blue",
-                        help="Cor usada para o nome do jornal: {0}RED{3}, {1}GREEN{3}, {2}BLUE{3}".format(
-                            COLOR["RED"], COLOR["GRN"], COLOR["BLU"], COLOR["RST"]
-                        ),
+                        help="Cor usada para o nome do jornal: {0}, {1}, {2}".format(
+                            C.red("RED"), C.green("GREEN"), C.blue("BLUE")),
                         metavar="STR")
 
     return parser.parse_args()

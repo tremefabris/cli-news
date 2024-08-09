@@ -1,4 +1,7 @@
 from json import load as jload
+from .color import Color as C
+
+
 
 def extract_url(tag, html=True):
     if html:
@@ -24,26 +27,11 @@ def href(uri, label=None):
     return escape_mask.format(params, uri, label)
 
 
-COLOR = {
-    "RED": "\033[91m",
-    "GRN": "\033[92m",
-    "BLU": "\033[94m",
-    "RST": "\033[0m"
-}
 
 def format_output(href, news_source, color="blue"):
     
-    color = color.lower()
-    if color == "red":
-        color_seq = COLOR["RED"]
-    if color == "green":
-        color_seq = COLOR["GRN"]
-    if color == "blue":
-        color_seq = COLOR["BLU"]
-    return "[{}{}{}] {}".format(
-        color_seq,
-        news_source,
-        COLOR["RST"],
+    return "[{}] {}".format(
+        C.color(news_source, color=color),
         href
     )
 
@@ -62,13 +50,13 @@ def create_links(website, headlines, options):
 
 
 def get_website_config(website_path, options):
-    with open(website_path, "r") as f:
+    with open(website_path.absolute(), "r") as f:
         ws = jload(f)
-    src = options.jornal.lower()  # error-passive
-    return ws[src]
+    news_source = options.jornal.lower()                            # error-passive
+    return ws[news_source]
 
-def get_webheader_config(webhead_path, options=None):
-    with open(webhead_path, "r") as f:
+def get_webheader_config(webheader_path, options=None):
+    with open(webheader_path.absolute(), "r") as f:
         wh = jload(f)
     return wh
 
