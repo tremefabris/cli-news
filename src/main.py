@@ -1,7 +1,10 @@
 # TODO: Properly "deploy" program
-# TODO: Add option to show only today's news
 # TODO: Add functionality to insert new websites (without hardcoding them)
 # TODO: Type-hint everything
+# TODO: Switch URL handling to urllib
+# TODO: Make options.since better (allow strings as input, etc)
+# TODO: Allow user to choose G1's RSS channel
+# TODO: Proper logging
 
 # G1 RSSs: https://g1.globo.com/tecnologia/noticia/2012/11/siga-o-g1-por-rss.html
 # NEXO RSS: https://www.nexojornal.com.br/rss.xml
