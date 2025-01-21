@@ -8,7 +8,8 @@
                 "class": "entry-title td-module-title"
             }
         ],
-        "date_format": null
+        "date_format": null,
+        "has_channels": false
     },
 
     "g1": {
@@ -17,7 +18,8 @@
         "find_tag": [
             "item"
         ],
-        "date_format": "%a, %d %b %Y %H:%M:%S %z"
+        "date_format": "%a, %d %b %Y %H:%M:%S %z",
+        "has_channels": true
     },
 
     "nexo": {
@@ -26,6 +28,7 @@
         "find_tag": [
             "item"
         ],
-        "date_format": "%Y-%m-%dT%H:%M:%S"
+        "date_format": "%Y-%m-%dT%H:%M:%S",
+        "has_channels": false
     }
 }

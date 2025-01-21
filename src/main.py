@@ -3,7 +3,7 @@
 # TODO: Type-hint everything
 # TODO: Switch URL handling to urllib
 # TODO: Make options.since better (allow strings as input, etc)
-# TODO: Allow user to choose G1's RSS channel
+# TODO: Modularize RSS checking; each time, break down on '/'
 # TODO: Proper logging
 # TODO: Add argument parsing in bash
 
@@ -11,26 +11,39 @@
 # NEXO RSS: https://www.nexojornal.com.br/rss.xml
 
 
-import requests
-from bs4 import BeautifulSoup
 from pathlib import Path
 
-from .utils import create_links, get_website_and_header
 from .options import get_options
+from .utils import create_links, get_website_and_header
+from .net import get_headlines_from_website
+from .color import Color as C
 
 def run():
     opt = get_options()
     WEBSITE, HEADER = get_website_and_header(Path("src/data/websites.json"),
                                              Path("src/data/webheaders.json"),
                                              opt)
+    
+    if not WEBSITE["has_channels"] and opt.canal is not None:
+        print(f" :: {C.yellow('WARNING')} :: This `jornal` does not have different RSS channels...")
+        print(f" :: {C.yellow('WARNING')} :: Using main RSS channel available...")
+        opt.canal = None
 
-    response = requests.get(WEBSITE["url"], headers=HEADER)
+    url = WEBSITE["url"] + opt.canal if opt.canal is not None else WEBSITE["url"]
+    parser = "html.parser" if WEBSITE["html"] else "xml"
+    find_tag = WEBSITE["find_tag"]
 
-    if response.status_code == 200:
-        parser = "html.parser" if WEBSITE["html"] else "xml"
-        
-        soup = BeautifulSoup(response.content, parser)
-        headlines = soup.find_all(*WEBSITE["find_tag"])
+    headlines = get_headlines_from_website(url, parser, find_tag, HEADER)
 
-        for link in create_links(WEBSITE, headlines, opt):
-            print(link)
+    if len(headlines) == 0:
+        print(f" :: {C.yellow('WARNING')} :: RSS channel is empty...")
+        print(f" :: {C.yellow('WARNING')} :: Defaulting to main RSS channel...")
+        headlines = get_headlines_from_website(WEBSITE["url"], parser, find_tag, HEADER)
+
+        if len(headlines) == 0:
+            print(f" :: {C.red('ERROR')} :: Main RSS channel unavailable...")
+            print(f" :: {C.red('ERROR')} :: Aborting execution...")
+            return -1
+
+    for link in create_links(WEBSITE, headlines, opt):
+        print(link)
