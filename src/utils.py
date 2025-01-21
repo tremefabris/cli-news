@@ -13,7 +13,7 @@ def extract_url(tag, html=True):
 def extract_title(tag, html=True):
     if html:
         return tag.text.strip()
-    return tag.title.text
+    return tag.title.text.strip()
 
 def extract_href(tag, html=True):
     url = extract_url(tag, html)
