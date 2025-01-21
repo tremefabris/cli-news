@@ -48,7 +48,7 @@ def create_links(website, headlines, options):
     for h in headlines:
 
         h_date = parse_date(h, website["date_format"])
-        if not date_ok(h_date, options.since):
+        if not date_ok(h_date, options.date):
             continue
 
         links.append(

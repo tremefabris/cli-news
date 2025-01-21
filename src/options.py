@@ -4,7 +4,8 @@ from .color import Color as C
 def get_options():
     parser = argparse.ArgumentParser()
     
-    parser.add_argument("--jornal", "-j", type=str, required=True,
+    parser.add_argument("--jornal", "-j", type=str, required=False,
+                        default="NEXO",
                         help="Qual jornal acessar: G1, NEXO, JAV",
                         metavar="STR")
     
@@ -14,7 +15,7 @@ def get_options():
                             C.red("RED"), C.green("GREEN"), C.blue("BLUE")),
                         metavar="STR")
 
-    parser.add_argument("--since", '-s', type=int, required=False,
+    parser.add_argument("--date", '-d', type=int, required=False,
                         default=-1,
                         help="Pegar apenas matérias lançadas desde N dias atrás",
                         metavar="N")
