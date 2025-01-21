@@ -41,8 +41,8 @@ def format_output(href, news_source, formatted_date, color="blue"):
 
 def create_links(website, headlines, options):
     if website["date_format"] is None:
-        print(f" :: {C.yellow("WARNING")} :: Publication date not available...")
-        print(f" :: {C.yellow("WARNING")} :: Fetching all articles found...")
+        print(f" :: {C.yellow('WARNING')} :: Publication date not available...")
+        print(f" :: {C.yellow('WARNING')} :: Fetching all articles found...")
 
     links = []
     for h in headlines:
