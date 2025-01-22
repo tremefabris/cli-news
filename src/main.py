@@ -6,6 +6,7 @@
 # TODO: Modularize RSS checking; each time, break down on '/'
 # TODO: Allow user to choose where to log
 # TODO: Add argument parsing in bash
+# TODO: Remove date-parsing logic from `create_links`
 
 # G1 RSSs: https://g1.globo.com/tecnologia/noticia/2012/11/siga-o-g1-por-rss.html
 # NEXO RSS: https://www.nexojornal.com.br/rss.xml
@@ -14,7 +15,7 @@
 from pathlib import Path
 
 from .options import get_options
-from .utils import create_links, get_website_and_header
+from .utils import create_links, get_website_and_header, filter_by_words
 from .net import get_headlines_from_website
 from .color import Color as C
 from .log import Log
@@ -48,6 +49,8 @@ def run():
             Log("Main RSS channel unavailable",
                 "Aborting execution",
                 level = Log.ERROR)
+
+    filter_by_words(headlines, opt.search, WEBSITE["html"])
 
     for link in create_links(WEBSITE, headlines, opt):
         print(link)

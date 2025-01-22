@@ -78,3 +78,21 @@ def get_website_and_header(website_path, webheader_path, options):
     ws = get_website_config(website_path, options)
     wh = get_webheader_config(webheader_path, options)
     return ws, wh
+
+
+def filter_by_words(headlines, words, html=True):                   # all this badness just to preserve
+    headlines_to_remove = []                                        # bs4 ResultSet's format...
+
+    if words is not None:
+        for h in headlines:
+            word_match = False
+
+            for w in words:
+                if w.lower() in extract_title(h, html).lower():
+                    word_match = True
+
+            if not word_match:
+                headlines_to_remove.append(h)
+    
+        for hrem in headlines_to_remove:
+            headlines.remove(hrem)
