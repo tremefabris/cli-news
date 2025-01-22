@@ -7,6 +7,8 @@
 # TODO: Allow user to choose where to log
 # TODO: Add argument parsing in bash
 # TODO: Remove date-parsing logic from `create_links`
+# TODO: Test if Paths are working properly for all edge cases
+# TODO: Make installation script
 
 # G1 RSSs: https://g1.globo.com/tecnologia/noticia/2012/11/siga-o-g1-por-rss.html
 # NEXO RSS: https://www.nexojornal.com.br/rss.xml
@@ -23,8 +25,11 @@ from .log import Log
 
 def run():
     opt = get_options()
-    WEBSITE, HEADER = get_website_and_header(Path("src/data/websites.json"),
-                                             Path("src/data/webheaders.json"),
+
+    websites_path = Path(opt.installpath) / Path("src/data/websites.json")
+    headers_path = Path(opt.installpath) / Path("src/data/webheaders.json")
+    WEBSITE, HEADER = get_website_and_header(websites_path,
+                                             headers_path,
                                              opt)
     
     if not WEBSITE["has_channels"] and opt.canal is not None:

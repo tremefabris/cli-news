@@ -13,4 +13,3 @@ def get_headlines_from_website(url, parser, find_tag, header):
         headlines = soup.find_all(*find_tag)
 
         return headlines
-

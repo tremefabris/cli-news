@@ -31,4 +31,9 @@ def get_options():
                             C.red("RED"), C.green("GREEN"), C.blue("BLUE")),
                         metavar="STR")
 
+    parser.add_argument("--installpath", type=str, required=False,
+                        default=".",
+                        help="Caminho para a instalação do `cli-news`",
+                        metavar="PATH")
+
     return parser.parse_args()
