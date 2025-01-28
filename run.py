@@ -1,4 +1,4 @@
-import src
+import cnews
 
 if __name__ == "__main__":
-    src.run()
+    cnews.run()
