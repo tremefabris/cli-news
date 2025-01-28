@@ -1,14 +1,3 @@
-# TODO: Properly "deploy" program
-# TODO: Add functionality to insert new websites (without hardcoding them)
-# TODO: Type-hint everything
-# TODO: Switch URL handling to urllib
-# TODO: Make options.since better (allow strings as input, etc)
-# TODO: Modularize RSS checking; each time, break down on '/'
-# TODO: Allow user to choose where to log
-# TODO: Add argument parsing in bash
-# TODO: Remove date-parsing logic from `create_links`
-# TODO: Test if Paths are working properly for all edge cases
-# TODO: Make installation script
 
 # G1 RSSs: https://g1.globo.com/tecnologia/noticia/2012/11/siga-o-g1-por-rss.html
 # NEXO RSS: https://www.nexojornal.com.br/rss.xml

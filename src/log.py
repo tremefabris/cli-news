@@ -1,7 +1,6 @@
 from .color import Color as C
 
 
-# TODO: Change `level` to enum
 class Log():
 
     OK = 0
