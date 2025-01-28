@@ -15,8 +15,8 @@ from .log import Log
 def run():
     opt = get_options()
 
-    websites_path = Path(opt.installpath) / Path("src/data/websites.json")
-    headers_path = Path(opt.installpath) / Path("src/data/webheaders.json")
+    websites_path = Path(opt.installpath) / Path("cnews/data/websites.json")
+    headers_path = Path(opt.installpath) / Path("cnews/data/webheaders.json")
     WEBSITE, HEADER = get_website_and_header(websites_path,
                                              headers_path,
                                              opt)
