@@ -2,3 +2,6 @@ test*.py
 __pycache__
 cli-news
 TODO*
+build*
+dist*
+cnews.egg-info*
